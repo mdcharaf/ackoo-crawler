@@ -1,10 +1,11 @@
-function makeHmCrawler({ fetch }) {
+function makeHmCrawler({ fetch, store }) {
   return Object.freeze({
     crawl
   });
 
   async function crawl() {
     const catalogue = await _fetchCatalogue();
+    await store.sync('hm', catalogue);
   }
 
   async function _fetchCatalogue() {
