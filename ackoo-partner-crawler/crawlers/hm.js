@@ -4,11 +4,7 @@ function makeHmCrawler({ fetch }) {
   });
 
   async function crawl() {
-    // Fetch
     const catalogue = await _fetchCatalogue();
-
-    // Store
-    
   }
 
   async function _fetchCatalogue() {
@@ -30,16 +26,18 @@ function makeHmCrawler({ fetch }) {
       const baseUrl = 'https://eg.hm.com';
       const { url, context } = _createRequest(pageNumber);
       const res = await fetch(url, context);
-      // Use defensive code here
+      // TODO: Use defensive code here
       const { results } = await res.json();
       const data = results[0];
 
       return {
         data: data?.hits?.map(item => ({
           title: item.title.en,
+          partner: 'hm',
           media: item.media,
           url: `${baseUrl}${item.url.en}`,
-          price: item.price.en
+          price: item.price.en,
+          inStock: true
         })),
         pagesCount: data.nbPages,
         page: data.page
