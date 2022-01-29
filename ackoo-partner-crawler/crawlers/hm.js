@@ -4,7 +4,11 @@ function makeHmCrawler({ fetch }) {
   });
 
   async function crawl() {
+    // Fetch
     const catalogue = await _fetchCatalogue();
+
+    // Store
+    
   }
 
   async function _fetchCatalogue() {
