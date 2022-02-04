@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const ProductSchema = new mongoose.Schema({
   _id: String,
@@ -8,8 +8,9 @@ const ProductSchema = new mongoose.Schema({
   media: Array,
   price: Number,
   inStock: Boolean,
-});
+  lastUpdate: Date
+})
 
-const ProductModel = mongoose.model('Product', ProductSchema);
+const ProductModel = mongoose.model('Product', ProductSchema)
 
 module.exports = { ProductModel }

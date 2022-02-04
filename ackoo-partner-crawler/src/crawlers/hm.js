@@ -1,35 +1,35 @@
-function makeHmCrawler({ fetch, store }) {
+function makeHmCrawler ({ fetch, store }) {
   return Object.freeze({
     crawl
-  });
+  })
 
-  async function crawl() {
-    const catalogue = await _fetchCatalogue();
-    await store.sync('hm', catalogue);
+  async function crawl () {
+    const catalogue = await _fetchCatalogue()
+    await store.sync('hm', catalogue)
   }
 
-  async function _fetchCatalogue() {
-    let catalogue = [];
-    let page = 0;
-    let count = 0;
+  async function _fetchCatalogue () {
+    const catalogue = []
+    let page = 0
+    let count = 0
     do {
-      const { data, pagesCount } = await _fetch(page);
-      catalogue.push(...data);
+      const { data, pagesCount } = await _fetch(page)
+      catalogue.push(...data)
 
-      count = pagesCount;
-    } while (++page < count);
+      count = pagesCount
+    } while (++page < count)
 
-    return catalogue;
+    return catalogue
   }
 
-  async function _fetch(pageNumber) {
+  async function _fetch (pageNumber) {
     try {
-      const baseUrl = 'https://eg.hm.com';
-      const { url, context } = _createRequest(pageNumber);
-      const res = await fetch(url, context);
+      const baseUrl = 'https://eg.hm.com'
+      const { url, context } = _createRequest(pageNumber)
+      const res = await fetch(url, context)
       // TODO: Use defensive code here
-      const { results } = await res.json();
-      const data = results[0];
+      const { results } = await res.json()
+      const data = results[0]
 
       return {
         data: data?.hits?.map(item => ({
@@ -44,11 +44,11 @@ function makeHmCrawler({ fetch, store }) {
         page: data.page
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
 
-  function _createRequest(pageNumber) {
+  function _createRequest (pageNumber) {
     return {
       url: 'https://hgr051i5xn-dsn.algolia.net/1/indexes/*/queries?x-algolia-application-id=HGR051I5XN&x-algolia-api-key=a2fdc9d456e5e714d8b654dfe1d8aed8',
       context: {
@@ -63,4 +63,4 @@ function makeHmCrawler({ fetch, store }) {
   }
 };
 
-module.exports = { makeHmCrawler };
+module.exports = { makeHmCrawler }
