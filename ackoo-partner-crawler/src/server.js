@@ -1,14 +1,11 @@
 
-const { makeProductsStore } = require('./store/productStore')
-const { dbClient } = require('./db/mongoDbClient')
-const { ProductModel } = require('./db/models/productModel')
-const { makeHmCrawler } = require('./crawlers/hm')
-const fetch = require('node-fetch');
+const fetch = require('node-fetch')
+const ProductStore = require('./store/product')
+const { makeHmCrawler } = require('./crawlers/hm');
 
 (async () => {
   try {
-    const store = makeProductsStore({ model: ProductModel, dbClient })
-    const crawler = makeHmCrawler({ fetch, store })
+    const crawler = makeHmCrawler({ fetch, store: ProductStore })
     await crawler.crawl()
 
     console.log('finished')

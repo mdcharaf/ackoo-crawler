@@ -4,8 +4,8 @@ function makeHmCrawler ({ fetch, store }) {
   })
 
   async function crawl () {
-    const catalogue = await _fetchCatalogue()
-    await store.sync('hm', catalogue)
+    const data = await _fetchCatalogue()
+    await store.sync(data)
   }
 
   async function _fetchCatalogue () {
@@ -27,12 +27,17 @@ function makeHmCrawler ({ fetch, store }) {
       const baseUrl = 'https://eg.hm.com'
       const { url, context } = _createRequest(pageNumber)
       const res = await fetch(url, context)
-      // TODO: Use defensive code here
+
+      if (!res.ok) {
+        throw new Error('Invalid fetch operation')
+      }
+
       const { results } = await res.json()
       const data = results[0]
 
       return {
         data: data?.hits?.map(item => ({
+          objectID: item.nid,
           title: item.title.en,
           partner: 'hm',
           media: item.media,
