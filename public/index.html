@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ackoo Discovery Crawling</title>
+</head>
+
+<body>
+  <h1>Up and Running with Crawling Functions</h1>
+  <button id="crawl-btn">Crawl</button>
+  <p id="response-output">Response Placeholder</p>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const fetchBtn = document.getElementById('crawl-btn')
+      const responseText = document.getElementById('response-output')
+
+      fetchBtn.addEventListener('click', async () => {
+        const response = await fetch('/.netlify/functions/crawl').then(
+          response => response.json()
+        )
+
+        responseText.innerText = JSON.stringify(response)
+      })
+    })
+  </script>
+</body>
+
+</html>
