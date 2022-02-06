@@ -19,9 +19,10 @@
       const responseText = document.getElementById('response-output')
 
       fetchBtn.addEventListener('click', async () => {
-        const response = await fetch('/.netlify/functions/crawl').then(
-          response => response.json()
-        )
+        // const response = await fetch('/.netlify/functions/crawl').then(
+        //   response => response.json()
+        // )
+        const response = { body: 'test' }
 
         responseText.innerText = JSON.stringify(response)
       })
