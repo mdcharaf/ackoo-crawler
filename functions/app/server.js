@@ -3,11 +3,10 @@ const fetch = require('node-fetch')
 const ProductStore = require('./store/product')
 const { makeHmCrawler } = require('./crawlers/hm')
 
-async function serve () {
+async function crawl () {
   try {
     const crawler = makeHmCrawler({ fetch, store: ProductStore })
     await crawler.crawl()
-
     console.log('finished')
   } catch (error) {
     console.log(error)
@@ -15,4 +14,4 @@ async function serve () {
   }
 }
 
-module.exports = { serve }
+module.exports = { crawl }

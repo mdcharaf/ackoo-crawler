@@ -10,7 +10,7 @@
     "lint": "eslint src --fix"
   },
   "engines": {
-    "node": "16"
+    "node": "14"
   },
   "main": "index.js",
   "dependencies": {
