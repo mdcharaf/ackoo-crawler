@@ -1,5 +1,6 @@
+const config = require('firebase-functions').config()
 const algoliasearch = require('algoliasearch')
-const client = algoliasearch('LDYPSN4SDY', 'dfbc030a96a5796f5d10d27e893c257e')
+const client = algoliasearch(config.algolia.apiKey, config.algolia.adminKey)
 const index = client.initIndex('dev_ackoo_products')
 
 const ProductStore = {
